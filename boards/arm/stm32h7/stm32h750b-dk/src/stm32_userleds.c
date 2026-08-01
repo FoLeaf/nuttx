@@ -57,6 +57,13 @@ static const uint32_t g_ledcfg[BOARD_NLEDS] =
   GPIO_LED_RED,
 };
 
+static const bool g_ledpol[BOARD_NLEDS] =
+{
+  LD1_ACTIVE_HIGH,
+  LD2_ACTIVE_HIGH,
+  LD3_ACTIVE_HIGH,
+};
+
 /****************************************************************************
  * Public Functions
  ****************************************************************************/
@@ -100,7 +107,7 @@ void board_userled(int led, bool ledon)
 {
   if ((unsigned)led < ARRAYSIZE(g_ledcfg))
     {
-      stm32_gpiowrite(g_ledcfg[led], ledon);
+      stm32_gpiowrite(g_ledcfg[led], ledon == g_ledpol[led]);
     }
 }
 
@@ -123,7 +130,8 @@ void board_userled_all(uint32_t ledset)
 
   for (i = 0; i < ARRAYSIZE(g_ledcfg); i++)
     {
-      stm32_gpiowrite(g_ledcfg[i], (ledset & (1 << i)) != 0);
+      stm32_gpiowrite(g_ledcfg[i],
+                      ((ledset & (1 << i)) != 0) == g_ledpol[i]);
     }
 }
 

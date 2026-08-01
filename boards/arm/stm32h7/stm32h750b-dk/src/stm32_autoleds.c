@@ -54,6 +54,13 @@ static const uint32_t g_ledmap[BOARD_NLEDS] =
   GPIO_LED_RED,
 };
 
+static const bool g_ledpol[BOARD_NLEDS] =
+{
+  LD1_ACTIVE_HIGH,
+  LD2_ACTIVE_HIGH,
+  LD3_ACTIVE_HIGH,
+};
+
 static bool g_initialized;
 
 /****************************************************************************
@@ -62,9 +69,9 @@ static bool g_initialized;
 
 static void phy_set_led(int led, bool state)
 {
-  /* Active High */
+  /* LEDs have mixed polarity; see LDx_ACTIVE_HIGH in stm32h750b-dk.h */
 
-  stm32_gpiowrite(g_ledmap[led], state);
+  stm32_gpiowrite(g_ledmap[led], state == g_ledpol[led]);
 }
 
 /****************************************************************************

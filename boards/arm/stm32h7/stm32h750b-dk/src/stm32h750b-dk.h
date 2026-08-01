@@ -75,10 +75,16 @@
 
 /* LED */
 
+/* Physical LED polarity: 1 = active high, 0 = active low */
+#define LD1_ACTIVE_HIGH 0
+#define LD2_ACTIVE_HIGH 0
+#define LD3_ACTIVE_HIGH 1
+
+/* Initial output level keeps every LED off at power-on */
 #define GPIO_LD1       (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
-                        GPIO_OUTPUT_CLEAR | GPIO_PORTI | GPIO_PIN13)
+                        GPIO_OUTPUT_SET | GPIO_PORTI | GPIO_PIN13)
 #define GPIO_LD2       (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
-                        GPIO_OUTPUT_CLEAR | GPIO_PORTJ | GPIO_PIN2)
+                        GPIO_OUTPUT_SET | GPIO_PORTJ | GPIO_PIN2)
 #define GPIO_LD3       (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
                         GPIO_OUTPUT_CLEAR | GPIO_PORTD | GPIO_PIN3)
 
